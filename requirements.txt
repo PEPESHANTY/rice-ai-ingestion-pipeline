@@ -22,6 +22,7 @@ tqdm
 # Embedding
 openai
 tiktoken
+anthropic
 
 # Vector DB
 qdrant-client
