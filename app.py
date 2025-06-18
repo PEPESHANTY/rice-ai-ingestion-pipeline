@@ -79,7 +79,7 @@ if st.button("🚀 Convert to Chunks"):
             st.error("❌ No valid HTTP/HTTPS URLs found.")
         else:
             url_args = " ".join(f'"{u}"' for u in clean_urls)
-            command = f"python run_aws_web_ingestion.py {url_args}"
+            command = f"{sys.executable} run_aws_web_ingestion.py {url_args}"
             subprocess.Popen(command, shell=True)
             st.info("🌐 Crawling started in background...")
             st.warning("⚠️ Refresh after a while to see newly ingested URLs.")
