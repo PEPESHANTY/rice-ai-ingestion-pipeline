@@ -1,0 +1,44 @@
+# Web Crawling
+crawl4ai
+requests
+beautifulsoup4
+lxml
+
+# PDF Ingestion
+pymupdf
+pdfplumber
+camelot-py
+openpyxl
+pillow
+
+# HTML/Text Processing
+trafilatura
+html2text
+tqdm
+
+# Embedding + LLMs
+openai
+sentence-transformers
+tiktoken
+
+# Vector DB
+qdrant-client
+
+# Data Handling
+pandas
+numpy
+python-dotenv
+
+# AWS
+boto3
+
+# UI + Backend
+streamlit
+fastapi
+uvicorn
+
+# Misc
+aiohttp
+psutil
+langdetect
+pydantic-ai
