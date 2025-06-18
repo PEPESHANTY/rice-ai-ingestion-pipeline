@@ -1,17 +1,21 @@
+--extra-index-url https://pypi.org/simple
+sentencepiece==0.1.99
+
 # Web Crawling
 crawl4ai
 requests
 beautifulsoup4
 lxml
 PyPDF2
-# PDF and file parsing (for future PDF ingestion)
+
+# PDF Parsing
 pymupdf
 pdfplumber
 camelot-py
 openpyxl
 pillow
 
-# HTML/Text Processing
+# Text Processing
 trafilatura
 html2text
 tqdm
@@ -20,19 +24,19 @@ tqdm
 openai
 tiktoken
 
-# Vector Database
+# Vector DB
 qdrant-client
 
-# Data handling
+# Data
 pandas
 numpy
 python-dotenv
 
-# Backend (if needed)
+# Backend
 fastapi
 uvicorn
 
-# Frontend (UI)
+# Frontend
 streamlit
 
 # Misc
@@ -41,5 +45,4 @@ psutil
 supabase
 langdetect
 pydantic-ai
-argostranslate
 boto3
