@@ -12,6 +12,10 @@ load_dotenv()
 bucket = os.getenv("S3_BUCKET_NAME")
 s3 = boto3.client("s3")
 
+import subprocess
+subprocess.run(["playwright", "install", "chromium"], check=True)
+
+
 # === Get session path from config ===
 with open("session_config.json") as f:
     session_path = json.load(f)["current_session_dir"]  # e.g. session_5/
