@@ -44,28 +44,32 @@ if st.button("🚀 Convert to Chunks"):
 
     from ingest_aws_for_app import process_pdf_file
     #
-    # async def run_pdf_ingestion():
-    #     for file in uploaded_files:
-    #         file_stream = io.BytesIO(file.read())  # No disk write, in-memory processing
-    #         await process_pdf_file(file_stream, file.name)
-    #     st.success("✅ PDF upload complete.")
-    #
+    async def run_pdf_ingestion():
+        for file in uploaded_files:
+            file_stream = io.BytesIO(file.read())  # No disk write, in-memory processing
+            await process_pdf_file(file_stream, file.name)
+        st.success("✅ PDF upload complete.")
+
 
     # Phase 1: Process PDFs
+    # Phase 1: Process PDFs/TXT in-memory
     if uploaded_files:
-        async def run_pdf_ingestion():
+        async def run_ingestion():
             for file in uploaded_files:
-                file_stream = io.BytesIO(file.read())  # Read in memory, avoid disk
+                file_stream = io.BytesIO(file.read())  # Read in memory
                 await process_pdf_file(file_stream, file.name)
 
+
         try:
-            loop = asyncio.get_event_loop()
-            if loop.is_running():
-                # Required for Streamlit Cloud or Jupyter environments
-                asyncio.ensure_future(run_pdf_ingestion())
-            else:
-                loop.run_until_complete(run_pdf_ingestion())
-        except RuntimeError as e:
+            try:
+                # Preferred: run with existing running loop
+                loop = asyncio.get_running_loop()
+                task = loop.create_task(run_ingestion())
+            except RuntimeError:
+                # Fallback: no running loop found
+                asyncio.run(run_ingestion())
+            st.success("✅ PDF upload complete.")
+        except Exception as e:
             st.error("❌ PDF ingestion failed.")
             st.exception(e)
 

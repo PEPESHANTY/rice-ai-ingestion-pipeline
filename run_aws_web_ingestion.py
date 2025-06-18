@@ -1,7 +1,11 @@
 # run_web_ingestion.py
-import os, sys, json, asyncio, boto3
+import os
+import json
+import sys
+import asyncio
 from ingest_aws_for_app import process_single_urls
 from dotenv import load_dotenv
+import boto3
 
 # === Load environment and S3 setup ===
 load_dotenv()
