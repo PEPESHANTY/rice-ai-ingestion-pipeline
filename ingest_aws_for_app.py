@@ -2,6 +2,7 @@ import os, json, asyncio
 import fitz
 import re
 import boto3
+import io
 from hashlib import md5
 from pathlib import Path
 from bs4 import BeautifulSoup
@@ -71,13 +72,24 @@ async def save_chunk_to_s3(chunk, meta, url, chunk_id, source, slug, path_hash):
     GLOBAL_CHUNK_ID += 1
     update_last_global_id(GLOBAL_CHUNK_ID)
 
-async def process_pdf_file(filepath: str):
-    doc = fitz.open(filepath)
-    text = "\n".join([page.get_text() for page in doc])
+async def process_pdf_file(file_stream: io.BytesIO, filename: str):
+    ext = Path(filename).suffix.lower()
+
+    if ext == ".pdf":
+        doc = fitz.open(stream=file_stream, filetype="pdf")
+        text = "\n".join([page.get_text() for page in doc])
+    elif ext == ".txt":
+        text = file_stream.read().decode("utf-8")
+    else:
+        raise ValueError("Unsupported file type. Only .pdf and .txt are allowed.")
+
+    from ingest_chunks import chunk_text, postprocess_text, get_title_summary
+
     chunks = chunk_text(postprocess_text(text))
-    slug = Path(filepath).stem.replace(" ", "_").lower()
-    path_hash = md5(filepath.encode()).hexdigest()[:6]
-    url = f"pdf://{slug}"
+
+    slug = Path(filename).stem.replace(" ", "_").lower()
+    path_hash = md5(filename.encode()).hexdigest()[:6]
+    url = f"{ext[1:]}://{slug}"
 
     for i, chunk in enumerate(chunks):
         meta = await get_title_summary(chunk, url)
