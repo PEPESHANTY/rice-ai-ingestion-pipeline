@@ -3,8 +3,8 @@ crawl4ai
 requests
 beautifulsoup4
 lxml
-
-# PDF Ingestion
+PyPDF2
+# PDF and file parsing (for future PDF ingestion)
 pymupdf
 pdfplumber
 camelot-py
@@ -16,29 +16,31 @@ trafilatura
 html2text
 tqdm
 
-# Embedding + LLMs
+# Embedding
 openai
 sentence-transformers
 tiktoken
 
-# Vector DB
+# Vector Database
 qdrant-client
 
-# Data Handling
+# Data handling
 pandas
 numpy
 python-dotenv
 
-# AWS
-boto3
-
-# UI + Backend
-streamlit
+# Backend (if needed)
 fastapi
 uvicorn
+
+# Frontend (UI)
+streamlit
 
 # Misc
 aiohttp
 psutil
+supabase
 langdetect
 pydantic-ai
+argostranslate
+boto3
