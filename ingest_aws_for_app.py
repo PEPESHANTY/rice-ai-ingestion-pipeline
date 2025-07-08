@@ -61,7 +61,7 @@ async def save_chunk_to_s3(chunk, meta, url, chunk_id, source, slug, path_hash):
             "lang": lang,
             "chunk_number": GLOBAL_CHUNK_ID,
             "url_path": parsed.path,
-            "chunk_id": f"{slug}_{path_hash}_chunk{chunk_id}"
+            "chunk_id": f"{slug}_{path_hash}_chunk{GLOBAL_CHUNK_ID}"
         }
     }
 
